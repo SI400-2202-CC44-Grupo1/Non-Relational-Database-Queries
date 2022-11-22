@@ -10,7 +10,7 @@ db.hotel_Admin.aggregate(
     }
 ]
 )
-//02 Sentencia para saber El cleinte que cancelo cada pedido
+//02 Sentencia para saber El cleinte que cancelo cada reserva
 db.reserva.aggregate(
 [   {
         $lookup:{
