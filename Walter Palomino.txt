@@ -1,0 +1,57 @@
+//  QUERIES
+
+//  Querie #2 ->  Retornar el metodo de pago usado segun el id del comprobante.
+db.Comprobante.aggregate([
+    {
+        $lookup:{
+            from: "Metodo_Pago",
+            localField: "Reserva_ID",
+            foreignField:"_id",
+            as: "Tipo"
+        }
+    }
+])
+
+//  Querie #3 -> Obtener el estado de la habitacion segun el id de la reserva.
+db.Habitacion.aggregate(
+[   {
+        $lookup:{
+            from: "reserva",
+            localField: "Hotel_ID",
+            foreignField:"_id",
+            as: "Estado"
+        }
+    }
+])
+
+// Datos insertados para ejecutar el Querie #2
+
+db.Comprobante.insertOne({"_id":"101","Monto":100.00,"Fecha":Date("2022-10-20"),"Estado":"Disponible","Tipo":"Boleta", "Reserva_ID":"101"})
+db.Comprobante.insertOne({"_id":"102","Monto":120.00,"Fecha":Date("2022-10-19"),"Estado":"Ocupado",   "Tipo":"Factura","Reserva_ID":"102"})
+db.Comprobante.insertOne({"_id":"103","Monto":140.00,"Fecha":Date("2022-10-18"),"Estado":"Reservado", "Tipo":"Boleta", "Reserva_ID":"103"})
+db.Comprobante.insertOne({"_id":"104","Monto":110.00,"Fecha":Date("2022-10-17"),"Estado":"Disponible","Tipo":"Factura","Reserva_ID":"104"})
+db.Comprobante.insertOne({"_id":"105","Monto":50.00,"Fecha": Date("2022-10-16"),"Estado":"Ocupado",   "Tipo":"Boleta", "Reserva_ID":"105"})
+db.Comprobante.find()
+
+db.Metodo_Pago.insertOne({"_id":"101","Tipo":"Efectivo", "Reserva_ID":"101"})
+db.Metodo_Pago.insertOne({"_id":"102","Tipo":"Tarjeta_Debito","Reserva_ID":"102"})
+db.Metodo_Pago.insertOne({"_id":"103","Tipo":"Tarjeta_Credito", "Reserva_ID":"103"})
+db.Metodo_Pago.insertOne({"_id":"104","Tipo":"Tarjeta_Debito","Reserva_ID":"104"})
+db.Metodo_Pago.insertOne({"_id":"105","Tipo":"Efectivo", "Reserva_ID":"105"})
+db.Metodo_Pago.find()
+
+// Datos insertados para ejecutar el Querie #3
+
+db.Habitacion.insertOne({"_id":"101","Tipo":"Matrimonial","nCamas":1,"TV":true,"WIFI":true,"Costo":100.00,"Capacidad":2,"Estado":"Disponible", "Hotel_ID":"101"})
+db.Habitacion.insertOne({"_id":"102","Tipo":"Suite","nCamas":1,"TV":true,"WIFI":true,"Costo":120.00,"Capacidad":2,"Estado":"Ocupado","Hotel_ID":"101"})
+db.Habitacion.insertOne({"_id":"103","Tipo":"Standard","nCamas":1,"TV":false,"WIFI":true,"Costo":50.00,"Capacidad":2,"Estado":"Reservado", "Hotel_ID":"101"})
+db.Habitacion.insertOne({"_id":"104","Tipo":"Triple","nCamas":3,"TV":true,"WIFI":true,"Costo":140.00,"Capacidad":2,"Estado":"Disponible","Hotel_ID":"101"})
+db.Habitacion.insertOne({"_id":"105","Tipo":"Suite","nCamas":1,"TV":true,"WIFI":true,"Costo":110.00,"Capacidad":2,"Estado":"Ocupado", "Hotel_ID":"101"})
+db.Habitacion.find()
+
+db.reserva.insertOne({"_id":"101","Reserva_date":Date("2022-12-20"),"Llegada_date":Date("2022-12-15"),"salida_date":Date("2022-12-25"),"Pedido_especial":"Almuerzo","costo":100.00,"Habitacion_ID":101,"Estado":"Pendiente","Cliente_id":101})
+db.reserva.insertOne({"_id":"102","Reserva_date":Date("2022-12-20"),"Llegada_date":Date("2022-12-16"),"salida_date":Date("2022-12-26"),"Pedido_especial":"Jacuzzi","costo":120.00,"Habitacion_ID":102,"Estado":"Anulado","Cliente_id":102})
+db.reserva.insertOne({"_id":"103","Reserva_date":Date("2022-12-20"),"Llegada_date":Date("2022-12-17"),"salida_date":Date("2022-12-27"),"Pedido_especial":"Aire acondicionado","costo":50.00,"Habitacion_ID":103,"Estado":"Pagado","Cliente_id":103})
+db.reserva.insertOne({"_id":"104","Reserva_date":Date("2022-12-20"),"Llegada_date":Date("2022-12-18"),"salida_date":Date("2022-12-28"),"Pedido_especial":"Whisky","costo":140.00,"Habitacion_ID":104,"Estado":"Pagado","Cliente_id":104})
+db.reserva.insertOne({"_id":"105","Reserva_date":Date("2022-12-20"),"Llegada_date":Date("2022-12-19"),"salida_date":Date("2022-12-29"),"Pedido_especial":"Vista a la calle","costo":110.00,"Habitacion_ID":105,"Estado":"Pagado","Cliente_id":105})
+db.reserva.find()
