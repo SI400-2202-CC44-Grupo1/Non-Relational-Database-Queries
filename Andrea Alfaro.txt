@@ -3,6 +3,8 @@
 
 /*Retorna el numero de habitaciones de un hotel*/
 
+/*insertar datos*/
+
 db.Pais.insertOne({"_id": "1", "Nombre":"Peru"});
 
 db.Ciudad.insertOne({"_id": "1", "Nombre": "Lima", "Pais_ID": "1"});
