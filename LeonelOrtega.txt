@@ -1,0 +1,135 @@
+//Sentencia que retorna el nombre del usuario segun el ID de la reserva
+
+db.Reserva.aggregate([
+{
+    $match:{"_id":"3"}
+},
+{
+    $lookup:{
+        from: "Cliente",
+        localField: "clienteID",
+        foreignField: "_id",
+        as: "Cliente_reserva"
+    }
+},
+{
+    $lookup:{
+        from: "Usuario",
+        localField: "Cliente_reserva.UsuarioID",
+        foreignField: "_id",
+        as: "Usuario"
+    }
+},
+{
+    $project:{
+        Nombre_Hotel: "$Usuario.nombre"
+    }
+}
+])
+
+//Obtener el numero de usuarios que son clientes
+db.Cliente.aggregate([
+{
+    $lookup:{
+        from: "Usuario",
+        localField: "UsuarioID",
+        foreignField: "_id",
+        as: "Usuario"
+    }
+},
+
+{
+    $count: "UsuarioID"
+}
+])
+
+
+db.Pais.insertOne({"_id": "1", "nombre":"Peru"});
+db.Pais.insertOne({"_id": "2", "nombre":"Argentina"});
+db.Pais.insertOne({"_id": "3", "nombre":"Uruguay"});
+db.Pais.insertOne({"_id": "4", "nombre":"Colombia"});
+db.Pais.insertOne({"_id": "5", "nombre":"Chile"});
+db.Pais.find();
+
+db.Ciudad.insertOne({"_id": "1", "nombre": "Lima", "pais_ID": "1"});
+db.Ciudad.insertOne({"_id": "2", "nombre": "Cuzco", "pais_ID": "1"});
+db.Ciudad.insertOne({"_id": "3", "nombre": "Buenos Aires", "pais_ID": "2"});
+db.Ciudad.insertOne({"_id": "4", "nombre": "La Plata", "pais_ID": "2"});
+db.Ciudad.insertOne({"_id": "5", "nombre": "Montevideo", "pais_ID": "3"});
+db.Ciudad.insertOne({"_id": "6", "nombre": "Maldonado", "pais_ID": "3"});
+db.Ciudad.insertOne({"_id": "7", "nombre": "Bogota", "pais_ID": "4"});
+db.Ciudad.insertOne({"_id": "8", "nombre": "Medellin", "pais_ID": "4"});
+db.Ciudad.insertOne({"_id": "9", "nombre": "Santiago de Chile", "pais_ID": "5"});
+db.Ciudad.insertOne({"_id": "10", "nombre": "Vina del Mar", "pais_ID": "5"});
+db.Ciudad.find();
+
+db.Hotel.insertOne({"_id": "1", "nombre": "Holiday Inn", "direccion": "Av. Tomas Valle, Esq. Av. Faucett",
+"telefono": "51-1-6206006", "ciudad_ID": "1"})
+db.Hotel.insertOne({"_id": "2", "nombre": "Hotel Boulevard", "direccion": "Av. Jose Pardo 771, Miraflores 15074",
+"telefono": "+51 01 4446562", "ciudad_ID": "1"})
+db.Hotel.insertOne({"_id": "3", "nombre": "Casa Suyay", "direccion": "C. Esperanza 144, Miraflores 15074",
+"telefono": "+51 01 2429432", "ciudad_ID": "1"})
+db.Hotel.insertOne({"_id": "4", "nombre": "Hotel Lexus", "direccion": "Av. Angamos Oeste 507, Miraflores 15074",
+"telefono": "+51 01 2419808", "ciudad_ID": "1"})
+db.Hotel.insertOne({"_id": "5", "nombre": "Alvear Palace Hotel", "direccion": "Av. Alvear 1891, C1129 CABA",
+"telefono": "+54 11 4808-2100", "ciudad_ID": "3"})
+db.Hotel.insertOne({"_id": "6", "nombre": "Hotel InterContinental Buenos Aires", "direccion": "809 Moreno St, C1091AAQ Buenos Aire",
+"telefono": "+54 11 4340-7100", "ciudad_ID": "3"})
+db.Hotel.insertOne({"_id": "7", "nombre": "Palladio Hotel Buenos Aires - MGallery", "direccion": "Av. Callao 924, C1023AAP CABA",
+"telefono": "+54 11 4700-7500", "ciudad_ID": "3"})
+db.Hotel.insertOne({"_id": "8", "nombre": "Sofitel Buenos Aires Recoleta", "direccion": "Posadas 1232, C1011 CABA",
+"telefono": "+54 11 4819-1100", "ciudad_ID": "3"})
+db.Hotel.insertOne({"_id": "9", "nombre": "Novotel Vina del Mar", "direccion": "Av. Tomas Valle, Esq. Av. Faucett",
+"telefono": "+56 32 325 3700", "ciudad_ID": "10"})
+db.Hotel.insertOne({"_id": "10", "nombre": "Pullman Vina del Mar San Martin", "direccion": "Calle 6 Norte, 745, 2520000 Vina del Mar",
+"telefono": "+56 32 381 7100", "ciudad_ID": "10"})
+db.Hotel.insertOne({"_id": "11", "nombre": "Hotel Diego de Almagro", "direccion": "1 Nte. 221, Vina del Mar, Valparaiso",
+"telefono": "+56 32 260 8500", "ciudad_ID": "10"})
+db.Hotel.insertOne({"_id": "12", "nombre": "Gala Hotel", "direccion": "Arlegui 273, Vina del Mar, Valparaiso",
+"telefono": "+56 32 232 1500", "ciudad_ID": "10"})
+db.Hotel.find();
+
+db.Habitacion.insertOne({"_id": "1", "tipo": "Suit", "TV": true, "wifi": true, "costo":"1450",
+"capacidad": "3", "estado": "Disponible", "hotelID" : "1" })
+db.Habitacion.insertOne({"_id": "2", "tipo": "Doble", "TV": true, "wifi": false, "costo":"350",
+"capacidad": "4", "estado": "Disponible", "hotelID" : "1" })
+db.Habitacion.insertOne({"_id": "3", "tipo": "Individual", "TV": false, "wifi": true, "costo":"150",
+"capacidad": "1", "estado": "Ocupada", "hotelID" : "1" })
+db.Habitacion.insertOne({"_id": "4", "tipo": "Queen", "TV": true, "wifi": true, "costo":"1050",
+"capacidad": "2", "estado": "En mantenimiento", "hotelID" : "4" })
+db.Habitacion.insertOne({"_id": "5", "tipo": "Twin", "TV": true, "wifi": false, "costo":"310",
+"capacidad": "2", "estado": "Disponible", "hotelID" : "4" })
+db.Habitacion.insertOne({"_id": "6", "tipo": "Suit", "TV": true, "wifi": true, "costo":"1250",
+"capacidad": "4", "estado": "Disponible", "hotelID" : "4" })
+db.Habitacion.find();
+
+
+db.Usuario.insertOne({"_id": "1", "dni": "87654321", "nombre": "Juan", "apellido": "Perez", "email": "J.P@gmail.com",
+"edad": "25", "genero": "Masculino", "telefono": "987654321", "contrasenia": "hola1", "ciudadID": "1"})
+db.Usuario.insertOne({"_id": "2", "dni": "77654321", "nombre": "Mauricio", "apellido": "Ando", "email": "M.P@gmail.com",
+"edad": "26", "genero": "Masculino", "telefono": "987654322", "contrasenia": "hola1", "ciudadID": "1"})
+db.Usuario.insertOne({"_id": "3", "dni": "67654321", "nombre": "Kazz", "apellido": "Grillo", "email": "K.P@gmail.com",
+"edad": "27", "genero": "Masculino", "telefono": "987654323", "contrasenia": "hola1", "ciudadID": "1"})
+db.Usuario.insertOne({"_id": "4", "dni": "57654321", "nombre": "Doris", "apellido": "Chamay", "email": "D.P@gmail.com",
+"edad": "28", "genero": "Femenino", "telefono": "987654324", "contrasenia": "hola1", "ciudadID": "4"})
+db.Usuario.insertOne({"_id": "5", "dni": "47654321", "nombre": "Loli", "apellido": "Esquerre", "email": "Lo.P@gmail.com",
+"edad": "29", "genero": "Femenino", "telefono": "987654325", "contrasenia": "hola1", "ciudadID": "4"})
+db.Usuario.insertOne({"_id": "6", "dni": "37654321", "nombre": "Jose", "apellido": "Perez", "email": "J.P@gmail.com",
+"edad": "20", "genero": "Masculino", "telefono": "987654326", "contrasenia": "hola1", "ciudadID": "4"})
+db.Usuario.find();
+
+db.Cliente.insertOne({"_id": "1", "nombre": "Juan", "apellidos": "perez" ,"telefono":"987654321", "UsuarioID":"1"})
+db.Cliente.insertOne({"_id": "2", "nombre": "Mauricio", "apellidos": "Ando" ,"telefono":"987654322", "UsuarioID":"2"})
+db.Cliente.insertOne({"_id": "3", "nombre": "Kazz", "apellidos": "Grillo" ,"telefono":"987654323", "UsuarioID":"3"})
+db.Cliente.insertOne({"_id": "4", "nombre": "Doris", "apellidos": "Chamay" ,"telefono":"987654324", "UsuarioID":"4"})
+db.Cliente.insertOne({"_id": "5", "nombre": "Loli", "apellidos": "Equerre" ,"telefono":"987654325", "UsuarioID":"5"})
+db.Cliente.insertOne({"_id": "6", "nombre": "Jose", "apellidos": "Perez" ,"telefono":"987654326", "UsuarioID":"6"})
+db.Cliente.find();
+
+db.Reserva.insertOne({"_id":"1", "reservaDate":"2020-01-23", "llegadaDate":"2020-04-01", "salidaDate": "2020-05-20", "pedidoE":"Nada", "costo": 300, "estado": "2", "habitacionID": "1", "clienteID": "1"});
+db.Reserva.insertOne({"_id":"2", "reservaDate":"2020-02-23", "llegadaDate":"2020-05-01", "salidaDate": "2020-06-20", "pedidoE":"Sabanas nuevas", "costo": 360, "estado": "2", "habitacionID": "2", "clienteID": "2"});
+db.Reserva.insertOne({"_id":"3", "reservaDate":"2020-03-23", "llegadaDate":"2020-06-01", "salidaDate": "2020-07-20", "pedidoE":"Comida", "costo": 700, "estado": "2", "habitacionID": "3", "clienteID": "3"});
+db.Reserva.insertOne({"_id":"4", "reservaDate":"2020-04-23", "llegadaDate":"2020-07-01", "salidaDate": "2020-08-20", "pedidoE":"Vino", "costo": 1300, "estado": "2", "habitacionID": "4", "clienteID": "4"});
+db.Reserva.insertOne({"_id":"5", "reservaDate":"2020-05-23", "llegadaDate":"2020-08-01", "salidaDate": "2020-09-20", "pedidoE":"Nada", "costo": 1400, "estado": "2", "habitacionID": "5", "clienteID": "5"});
+db.Reserva.insertOne({"_id":"6", "reservaDate":"2020-06-23", "llegadaDate":"2020-09-01", "salidaDate": "2020-10-20", "pedidoE":"Nada", "costo": 540, "estado": "2", "habitacionID": "6", "clienteID": "6"});
+db.Reserva.find();
