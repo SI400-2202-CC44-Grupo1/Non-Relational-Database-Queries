@@ -1,0 +1,16 @@
+/*Retorna la cantidad de reseñas de un hotel*/
+
+
+/*Retorna el numero de habitaciones de un hotel*/
+
+db.Pais.insertOne({"_id": "1", "Nombre":"Peru"});
+
+db.Ciudad.insertOne({"_id": "1", "Nombre": "Lima", "Pais_ID": "1"});
+
+db.Hotel.insertOne({"_id": "1", "Nombre": "Hotel Don Bolivar", "Direccion": "Av. La Paz","Telefono": "984721179", "Ciudad_ID": "1"});
+
+db.Resena.insertOne({"_id":"1","Comentario":"Excelente atención","Puntuacion":"5","Hotel_ID":"1","Usuario_ID":"1"});
+db.Resena.insertOne({"_id":"2","Comentario":"Buena locacion","Puntuacion":"5","Hotel_ID":"1","Usuario_ID":"2"});
+db.Resena.insertOne({"_id":"3","Comentario":"El buffet fue bueno pero...","Puntuacion":"4","Hotel_ID":"1","Usuario_ID":"3"});
+db.Resena.insertOne({"_id":"4","Comentario":"Los trabajadores son muy amables","Puntuacion":"4","Hotel_ID":"1","Usuario_ID":"4"});
+db.Resena.insertOne({"_id":"5","Comentario":"Hubo un problema con mi reserva...","Puntuacion":"3","Hotel_ID":"1","Usuario_ID":"5"});
