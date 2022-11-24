@@ -1,7 +1,25 @@
-/*Retorna la cantidad de reseñas de un hotel*/
+/*1. Retorna la cantidad de reseñas de un hotel*/
 
+db.Resena.aggregate([
+{
+    $lookup:{
+        from: "Hotel",
+        localField: "Hotel_ID",
+        foreignField: "_id",
+        as: "Hotel"
+    }
+},
+{
+    $match:{ "Hotel_ID":"1"}
+},
+{
+    $count: "Cantidad_Reseñas:"
+}
+])
 
 /*Retorna el numero de habitaciones de un hotel*/
+
+
 
 /*insertar datos*/
 
