@@ -24,7 +24,7 @@ db.reserva.aggregate(
     },
     {$match:{"Estado":"Cancelado"}},
     {
-     $project:{Nombre_Cliente:"$Clientes.nombre"}
+     $project:{Nombre_Cliente:"$Clientes.nombre","_id":0,ID_cliente:"$Clientes.nombre"}
     }
 ]
 )
