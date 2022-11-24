@@ -10,17 +10,22 @@ db.hotel_Admin.aggregate(
     }
 ]
 )
-//02 Sentencia para saber El cleinte que cancelo cada reserva
+
+//02 Sentencia para saber El cleinte que cancelo cada pedido segun su ID
 db.reserva.aggregate(
-[   {
+[   {$match:{"_id":"2"}},
+     {
         $lookup:{
             from: "Cliente",
             localField: "Cliente_id",
             foreignField:"_id",
-            as: "Reservas Canceladas"
+            as: "Clientes"
         }
     },
-    {$match:{"Estado":"Cancelado"}}
+    {$match:{"Estado":"Cancelado"}},
+    {
+     $project:{Nombre_Cliente:"$Clientes.nombre"}
+    }
 ]
 )
 
