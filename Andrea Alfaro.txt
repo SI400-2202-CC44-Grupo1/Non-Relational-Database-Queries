@@ -14,3 +14,8 @@ db.Resena.insertOne({"_id":"2","Comentario":"Buena locacion","Puntuacion":"5","H
 db.Resena.insertOne({"_id":"3","Comentario":"El buffet fue bueno pero...","Puntuacion":"4","Hotel_ID":"1","Usuario_ID":"3"});
 db.Resena.insertOne({"_id":"4","Comentario":"Los trabajadores son muy amables","Puntuacion":"4","Hotel_ID":"1","Usuario_ID":"4"});
 db.Resena.insertOne({"_id":"5","Comentario":"Hubo un problema con mi reserva...","Puntuacion":"3","Hotel_ID":"1","Usuario_ID":"5"});
+
+db.Habitacion.insertOne({"_id":"1","Tipo":"Ejecutiva","nCamas":"1","TV":"1","Wifi":"1","Costo":"500", "Capacidad":"3", "Estado":"Libre", "Hotel_ID":"1"});
+db.Habitacion.insertOne({"_id":"2","Tipo":"Matrimonial","nCamas":"1","TV":"1","Wifi":"1","Costo":"800", "Capacidad":"3", "Estado":"Ocupada", "Hotel_ID":"1"});
+db.Habitacion.insertOne({"_id":"3","Tipo":"Simple","nCamas":"1","TV":"1","Wifi":"1","Costo":"200", "Capacidad":"3", "Estado":"Libre", "Hotel_ID":"1"});
+db.Habitacion.insertOne({"_id":"4","Tipo":"Royal","nCamas":"1","TV":"1","Wifi":"1","Costo":"500", "Capacidad":"3", "Estado":"Ocupada", "Hotel_ID":"1"});
